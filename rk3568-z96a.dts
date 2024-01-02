@@ -367,7 +367,6 @@
         dc_det_gpio = <&gpio3 0x00000005 GPIO_ACTIVE_HIGH>;
         pinctrl-names = "default";
         pinctrl-0 = <&dc_det_gpio_pin>;
-        phandle = <0x000001f8>;
     };
 
     bt_sco: bt-sco {
@@ -399,7 +398,6 @@
         pinctrl-0 = <&mh_248>;
         irq-gpio = <&gpio0 0x00000016 IRQ_TYPE_LEVEL_LOW>;
         hall-active = <0x00000001>;
-        phandle = <0x000001f9>;
     };
 
     ext_cam_clk: external-camera-clock {
@@ -419,7 +417,6 @@
         ports {
             panel_in_edp: endpoint {
                 remote-endpoint = <&edp_out_panel>;
-                phandle = <0x000000a3>;
             };
         };
     };
