@@ -25,10 +25,6 @@
         husb0 = &husb0;
     };
 
-    chosen: chosen {
-        bootargs = "earlycon=uart8250,mmio32,0xfe660000 console=ttyFIQ0 root=PARTUUID=614e0000-0000 rw rootwait";
-    };
-
     audiopwmout_diff: audiopwmout-diff {
         status = "disabled";
         compatible = "simple-audio-card";
@@ -147,7 +143,7 @@
         };
     };
 
-    rk817_sound: rk817-sound {
+    rk817-sound {
         status = "okay";
         compatible = "simple-audio-card";
         simple-audio-card,format = "i2s";
@@ -336,6 +332,8 @@
         bus-format = <MEDIA_BUS_FMT_RGB888_1X24>;
         bpc = <8>;
 
+        width-mm = <309>;
+        height-mm = <173>;
         prepare-delay-ms = <200>;
         enable-delay-ms = <20>;
 
@@ -343,17 +341,17 @@
             native-mode = <&timing0>;
 
             timing0: timing0 {
-                clock-frequency = <132000000>;
+                clock-frequency = <141400000>;
                 hactive = <1920>;
                 vactive = <1080>;
 
-                hfront-porch = <15>;
-                hsync-len = <2>;
-                hback-porch = <30>;
+                hfront-porch = <48>;
+                hsync-len = <32>;
+                hback-porch = <142>;
 
-                vfront-porch = <15>;
-                vsync-len = <2>;
-                vback-porch = <30>;
+                vfront-porch = <3>;
+                vsync-len = <6>;
+                vback-porch = <11>;
 
                 hsync-active = <0>;
                 vsync-active = <0>;
