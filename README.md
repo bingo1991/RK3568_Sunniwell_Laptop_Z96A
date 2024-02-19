@@ -16,14 +16,19 @@
 - Storage: 32GB eMMC 5.1
 - Power: DC 12V 2A （3.5×1.35mm）
 - Display
-  - eDP 1.3, with a 1920x1080 panel from BOE, model NV140FHM-N48 (3.3V，VP1@eDP0，backlight@PWM10)
-  - HDMI 2.0(Max 4K@60Hz)
+  - Built-in eDP with a 1920x1080 panel from BOE, model NV140FHM-N48 (3.3V，VP1@eDP0，backlight@PWM10)
+  - mini HDMI 2.0(Max 4K@60Hz)
 - Baterry: SHT 3585130-2S，5000mAh/37Wh，Voltage 8.4V
 - Charger Management: CN3705
-- WiFi/BT: LB-Link BL-M8821CS1（RTL8821CS，SDIO2.0），1T1R 802.11a/b/g/n/ac WiFi+B4.2，433Mbps
-- USB: FE1.1s USB 2.0 HUB
+- WiFi/BT: LB-Link BL-M8821CS1
+  - WiFi: RTL8821CS，SDIO2.0，1T1R 802.11a/b/g/n/ac WiFi，433Mbps
+  - BT: 3-Wire HCIUART(USRT1) BT4.2
+- USB: 1xUSB3.0 Type-A + 1xUSB2.0 Type-A + 1xUSB Type-C OTG
+  - FE1.1s USB 2.0 HUB
+  - Type-C Controller: HUSB311 or FUSB302
+  - AU3841 USB2.0 Web camera
+  - Built-in USB2.0 Touchpad
 - Keyboard Controller: SH61F83Q(A 51 MCU)
-- USB Type-C Controller: HUSB311 or FUSB302
 
 ## 相关参考 | Related Reference
 
@@ -37,24 +42,26 @@ Linux下使能Panfrost驱动后，glmark2-es2-wayland跑分可以到470+
 
 ## 补充说明 | Note
 
-从原机自带的Android 11固件[提取的dtb](https://github.com/bingo1991/RK3568_Sunniwell_Laptop_Z96A/blob/main/rk3568-z96a.dtb)，反编译出来，并对照其他设备的dts，逐步还原成[原始dts](https://github.com/bingo1991/RK3568_Sunniwell_Laptop_Z96A/blob/main/rk3568-z96a.dts)。
+从原机自带的Android 11固件(4.19内核)提取了dtb，反编译出来，并对照其他设备的dts，还原出来了[原始dts](https://github.com/bingo1991/RK3568_Sunniwell_Laptop_Z96A/blob/main/rk3568-z96a.dts)。
 
-中间耗费的时间、精力比想象的多，但如今看来还是值得的，该dts目前在5.10内核中均可正常编译。
+中间耗费的时间、精力比想象的多，但如今看来还是值得的，该dts目前逐步优化已经可以在5.10内核中正常编译使用。
 
 Working：
 - eDP Display
 - Keyboard
-- USB Tuchpad
+- Touchpad
 - RK817 sound card
-- RTL8821CS WiFi
+- RTL8821CS SDIO WiFi
+- RTL8211CS UART BT
 - Panfrost GPU driver
+- HDMI output
+- USB Web camera
+- Hall sensor for lid open/close
 - Battery
   - 该设备的锂电池电压为8.4V，不支持用 RK817 管理充电，而是使用了免管理的 CN3705 芯片，这是与一众 rk3566 + rk817 方案的平板电脑不同的地方。
   - 电池信息获取同样没有使用 RK817，厂家使用了 ADC 的 channel 1来采集电压，并修改了 RK817 的电池管理驱动代码来呈现信息。
   - 由于我们没有厂家修改后的代码，只好群策群力，重新手搓了一段补丁代码，解决了电池信息显示的问题。
 
 Not working yet：
-- USB Camera
-- RTL8821CS Bluetooth
-- HDMI output, halt after Panfrost driver enbaled, working to fix it...
+- None, everything works fine by now
 
